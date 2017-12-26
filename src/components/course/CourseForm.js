@@ -10,14 +10,14 @@ const CourseForm =({course, allAuthors, onSave, onChange, loading, errors}) => {
             <h1>Manage course</h1>
             <TextInput
                 name="title"
-                lable="Title"
+                label="Title"
                 value={course.title}
                 onChange={onChange}
                 error={errors.title}/>
             
             <SelectInput
                 name="authorId"
-                lable="Author"
+                label="Author"
                 value={course.authorId}
                 defaultOption="Select Author"
                 options={allAuthors}
@@ -26,24 +26,17 @@ const CourseForm =({course, allAuthors, onSave, onChange, loading, errors}) => {
 
             <TextInput
                 name="category"
-                lable="Category"
+                label="Category"
                 value={course.category}
                 onChange={onChange}
                 error={errors.category}/>
 
             <TextInput
                 name="length"
-                lable="Length"
+                label="Length"
                 value={course.length}
                 onChange={onChange}
                 error={errors.length}/>
-
-            <TextInput
-                name="title"
-                lable="title"
-                value={course.title}
-                onChange={onChange}
-                error={errors.title}/>
             
             <input
                 type="submit"
