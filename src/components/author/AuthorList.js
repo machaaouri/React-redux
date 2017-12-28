@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import AuthorListRow from './AuthorListRow';
 
 const AuthorList = ({authors}) => {
-    
+    console.log({authors});
     return (
         <table className="table">
             <thead>

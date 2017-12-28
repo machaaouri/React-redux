@@ -8,7 +8,7 @@ export default function authorReducer(state = initialState.authors, action) {
 
     case types.CREATE_AUTHOR_SUCCESS:
      return [...state,
-            Object.assign({}),action.author];
+            Object.assign({},action.author)];
     
     case types.UPDATE_AUTHOR_SUCCESS:
     return [ // get all the courses except the course that is beinf updated
