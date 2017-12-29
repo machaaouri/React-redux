@@ -2,6 +2,9 @@ import React from 'react';
 import AuthorList from './AuthorList';
 import { connect } from 'react-redux';
 import {browserHistory} from 'react-router';
+import {bindActionCreators} from 'redux';
+import * as authorActions from '../../actions/authorActions';
+import toastr from 'toastr';
 
 
 class AuthorsPage extends React.Component {
@@ -9,11 +12,20 @@ class AuthorsPage extends React.Component {
     constructor(props,context){
       super(props,context);
       this.redirectToAddAuthorPage = this.redirectToAddAuthorPage.bind(this);
-    
+      this.deleteAuthor = this.deleteAuthor.bind(this);
     }
 
     redirectToAddAuthorPage(){
       browserHistory.push('/author');
+    }
+
+    deleteAuthor(event){
+      let authorId = event;
+      this.props.actions.deleteAuthor(authorId)
+      .then(() => toastr.success('Author deleted.'))
+      .catch(error =>{
+            toastr.error(error);
+      });
     }
 
     render(){
@@ -25,14 +37,15 @@ class AuthorsPage extends React.Component {
                  value="Add Author"
                  className="btn btn-primary"
                  onClick={this.redirectToAddAuthorPage}/>
-            <AuthorList authors={this.props.authors} />
+            <AuthorList authors={this.props.authors} onClick={this.deleteAuthor} />
         </div>
       );
     }
   }
 
   AuthorsPage.propTypes = {
-    authors : React.PropTypes.array.isRequired
+    authors : React.PropTypes.array.isRequired,
+    actions: React.PropTypes.object.isRequired
   };
 
   function mapStateToProps(state,ownProps){
@@ -40,5 +53,11 @@ class AuthorsPage extends React.Component {
       authors: state.authors
     };
   }
+
+  function mapDispatchToProps(dispatch) {
+    return{
+        actions: bindActionCreators(authorActions,dispatch)
+    };
+}
   
-  export default connect(mapStateToProps)(AuthorsPage);
+  export default connect(mapStateToProps,mapDispatchToProps)(AuthorsPage);
