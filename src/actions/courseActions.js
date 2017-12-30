@@ -52,5 +52,5 @@ export function deleteCourse(courseId){
       dispatch(ajaxCallError(error));
       throw(error);
     });
-  }
+  };
 }

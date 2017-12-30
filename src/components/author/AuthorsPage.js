@@ -20,12 +20,19 @@ class AuthorsPage extends React.Component {
     }
 
     deleteAuthor(event){
+      debugger;
       let authorId = event;
-      this.props.actions.deleteAuthor(authorId)
-      .then(() => toastr.success('Author deleted.'))
-      .catch(error =>{
-            toastr.error(error);
-      });
+      let hasCourse = this.props.courses.filter(courses => courses.authorId == authorId);
+      if(hasCourse.length == 0)
+      {
+        this.props.actions.deleteAuthor(authorId)
+        .then(() => toastr.success('Author deleted.'))
+        .catch(error =>{
+              toastr.error(error);
+        });
+      } else {
+        toastr.error("Author has course: " + hasCourse[0].title);
+      }
     }
 
     render(){
@@ -50,7 +57,8 @@ class AuthorsPage extends React.Component {
 
   function mapStateToProps(state,ownProps){
     return{
-      authors: state.authors
+      authors: state.authors,
+      courses: state.courses
     };
   }
 
