@@ -16,7 +16,7 @@ export function updateAuthorSuccess(author) {
 }
 
 export function deleteAuthorSuccess(authorId) {
-  return {type: types.DELETE_AUTHOR_SUCCESS,authorId}
+  return {type: types.DELETE_AUTHOR_SUCCESS,authorId};
 }
 
 export function loadAuthors() {
@@ -37,8 +37,8 @@ export function deleteAuthor(authorId){
     .catch(error => {
       dispatch(ajaxCallError(error));
       throw(error);
-    })
-  }
+    });
+  };
 }
 
 export function saveAuthor(author){
