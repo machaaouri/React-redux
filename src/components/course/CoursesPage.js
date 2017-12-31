@@ -6,7 +6,6 @@ import CourseList from './CourseList';
 import {browserHistory} from 'react-router';
 import toastr from 'toastr';
 
-
 class CoursesPage extends React.Component {
   constructor(props,context){
     super(props,context);
@@ -49,9 +48,23 @@ CoursesPage.propTypes = {
   actions: React.PropTypes.object.isRequired
 };
 
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
 function mapStateToProps(state,ownProps){
+   let courses = state.courses;
    return {
-      courses: state.courses
+      courses: courses.sort(dynamicSort('title'))
    };
 }
 
