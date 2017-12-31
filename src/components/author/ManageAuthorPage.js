@@ -29,10 +29,30 @@ export class ManageAuthorPage extends React.Component{ // this export is useful 
         return this.setState({author: author});
     }
 
+    authorPageIsValid()
+    {
+        let isvalid = true;
+        let errors = {};
+
+        if(this.state.author.firstName.length == 0)
+        {
+            errors.firstName ="firstName is required";
+            isvalid = false;
+        }
+        if(this.state.author.lastName.length == 0)
+        {
+            errors.lastName ="lastName is required";
+            isvalid = false;
+        }
+        this.setState({errors:errors});
+        return isvalid;
+    }
 
     saveAuthor(event)
     {
         event.preventDefault();
+
+        if(!this.authorPageIsValid()) return;
 
         this.setState({saving: true});
         this.props.actions.saveAuthor(this.state.author)
